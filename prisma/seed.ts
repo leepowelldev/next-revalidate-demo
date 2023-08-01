@@ -21,7 +21,34 @@ async function main() {
     },
   });
 
-  await Promise.allSettled([alice, bob]);
+  const dave = await prisma.user.upsert({
+    where: { email: "dave@prisma.io" },
+    update: {},
+    create: {
+      email: "dave@prisma.io",
+      name: "Dave",
+    },
+  });
+
+  const jane = await prisma.user.upsert({
+    where: { email: "jane@prisma.io" },
+    update: {},
+    create: {
+      email: "jane@prisma.io",
+      name: "Jane",
+    },
+  });
+
+  const bill = await prisma.user.upsert({
+    where: { email: "bill@prisma.io" },
+    update: {},
+    create: {
+      email: "bill@prisma.io",
+      name: "Bill",
+    },
+  });
+
+  await Promise.allSettled([alice, bob, dave, jane, bill]);
 }
 
 main()
